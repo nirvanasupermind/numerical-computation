@@ -8,7 +8,9 @@ Returns the factorial of a number using a Ramanujan approximation. It also emula
 ##### `x: number`
 The number to take the factorial of.
 #### Usage
-    numerical.fac(3) //6
-    numerical.fac(9) //362880
-    numerical.fac(2.5)
-    
+```
+numerical.fac(3) //6
+numerical.fac(9) //362880
+numerical.fac(2.5) //3.323402024697955
+numerical.fac(-1) //NaN
+````
