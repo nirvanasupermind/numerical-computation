@@ -246,6 +246,7 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
 
 
             sqrt() {
+                console.log(this);
                 if (this.width() !== this.height()) {
                     throw new Error("Can't find square root of matrix " + this + " - the matrix is not a square matrix")
                 } else {
@@ -271,16 +272,25 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
                     var y = this;
                     var z = matrix_obj.Matrix.identity(this.width());
 
-                    var y_old;
-                    var z_old
+                    var y_old = y;
+                    var z_old = z;
 
-                    for (var k=0; k< 500; k++) {
-                        y_old = y;
-                        z_old = z;
-                        y = y_old.add(z_old.inverse()).multiplys(1 / 2);
-                        z = z_old.add(y_old.inverse()).multiplys(1 / 2);
+                    for (var k = 0; k < 500; k++) {
+                        try {
+                            y_old = y;
+                            z_old = z;
+                            y = y_old.add(z_old.inverse()).multiplys(1 / 2);
+                            z = z_old.add(y_old.inverse()).multiplys(1 / 2);
+                        } catch (e) {
+                            console.warn("Denman-beaver iteration broke at k=" + k + ", program will return the last iteration valid.")
+                            break;
+
+                        }
+
+
 
                     }
+
                     /*
                     var y = [this];
                     var z = [matrix_obj.Matrix.identity(this.width())];
