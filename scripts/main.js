@@ -7,7 +7,7 @@ require(["numerical"], function (numerical) {
     // var m2 = halfIterate.halfIterate(m1,3);
     // console.log(m2);
 
-    console.log(numerical.fac(2.5))
+    console.log(numerical.npr(6.2,1.7))
 
 
 });
