@@ -310,9 +310,9 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
                     result.array.push([]);
                     for (var k = 0; k < size; k++) {
                         var temp = 1 / fac.fac(k);
-                        temp += derivative.derivative(function (x) {
+                        temp *= (derivative.derivative(function (x) {
                             return f(x) ** j
-                        }, 0, k);
+                        }, 0, k));
                         result.array[j].push(temp);
                     }
                 }
