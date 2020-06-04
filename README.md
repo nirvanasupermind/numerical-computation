@@ -29,13 +29,29 @@ The number to take the factorial of.
     numerical.fac(-1) //NaN`
 
 ### `numerical.ncr(n: number, r: number)`
-Returns the binomial coefficient or combination of two numbers. Also works for non-integers, due to using `numerical.fac` internally. Note that order does not matter with the combinations, but does with permutations.
+Returns the binomial coefficient or combination of two numbers. Also works for non-integers, due to using `numerical.fac` internally. 
 
 #### Arguments
 ##### `n: number`
-The first argument, or the number of options availible in an applied case.
+The first argument, or the number of options availible in an applied case. Does not work if `n>r`.
 ##### `r: number`
-The second argument, or the number of options selected in an applied case.
+The second argument, or the number of options selected in an applied case. Does not work if `n>r`.
 
 #### Usage
-`numerical.ncr(2,3)` 
+    numerical.ncr(5,3) // 10
+    numerical.ncr(4.5,2.8) // 7.218203306925931
+    numerical.ncr(2,4) // NaN
+
+### `numerical.npr(n: number, r: number)`
+Returns the permutation of two numbers. Also works for non-integers, due to using `numerical.fac` internally. 
+
+##### `n: number`
+The first argument, or the number of options availible in an applied case. Does not work if `n>r`.
+##### `r: number`
+The second argument, or the number of options selected in an applied case. Does not work if `n>r`.
+
+#### Usage
+    numerical.npr(5,3) // 60
+    numerical.npr(6.2,1.7) //20.066120287080764
+    numerical.npr(1,9) // NaN
+## Differentiation
