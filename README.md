@@ -33,9 +33,9 @@ Returns the binomial coefficient or combination of two numbers. Also works for n
 
 #### Arguments
 ##### `n: number`
-The first argument, or the number of options availible in an applied case. Does not work if `n>r`.
+The first argument, or the number of options availible in an applied case. Does not work if `n<r`.
 ##### `r: number`
-The second argument, or the number of options selected in an applied case. Does not work if `n>r`.
+The second argument, or the number of options selected in an applied case. Does not work if `n<r`.
 
 #### Usage
     numerical.ncr(5,3) // 10
@@ -46,9 +46,9 @@ The second argument, or the number of options selected in an applied case. Does 
 Returns the permutation of two numbers. Also works for non-integers, due to using `numerical.fac` internally. 
 
 ##### `n: number`
-The first argument, or the number of options availible in an applied case. Does not work if `n>r`.
+The first argument, or the number of options availible in an applied case. Does not work if `n<r`.
 ##### `r: number`
-The second argument, or the number of options selected in an applied case. Does not work if `n>r`.
+The second argument, or the number of options selected in an applied case. Does not work if `n<r`.
 
 #### Usage
     numerical.npr(5,3) // 60
