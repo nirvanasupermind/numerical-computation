@@ -6,9 +6,6 @@ require(["numerical"], function (numerical) {
 
     // var m2 = halfIterate.halfIterate(m1,3);
     // console.log(m2);
-    
-    console.log((numerical.Matrix.carleman(function (x) {
-        return x**2
-    },3)).sqrt());
 
+    console.log(numerical.taylor(Math.exp, 0, 9))
 });

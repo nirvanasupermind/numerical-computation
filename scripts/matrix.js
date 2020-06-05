@@ -8,6 +8,98 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
         //     return result;
         // },
 
+        gcd: function (x, y) {
+            x = Math.abs(x);
+            y = Math.abs(y);
+            while (y) {
+                var t = y;
+                y = x % y;
+                x = t;
+            }
+            return x;
+        },
+
+        lcm: function (x, y) {
+            if ((typeof x !== 'number') || (typeof y !== 'number'))
+                return false;
+            return (!x || !y) ? 0 : Math.abs((x * y) / matrix_obj.gcd(x, y));
+        },
+
+        fracAdd: function(x,y) {
+            var t1 = matrix_obj.lcm(x[1],y[1])/x[1];
+            var t2 = matrix_obj.lcm(x[1],y[1])/y[1];
+            var t3 = matrix_obj.lcm(x[1],y[1]);
+            x[0] = x[0]*t1;
+            x[1] = t3;
+            y[0] = y[0]*t2;
+            y[1] = t3;
+            
+        
+            return matrix_obj.simplify([x[0]+y[0],t3]);
+        },
+
+        simplify: function (data) {
+            var result = '';
+            numOne = Number(data[0]),
+                numTwo = Number(data[1]);
+            for (var i = Math.max(numOne, numTwo); i > 1; i--) {
+                if ((numOne % i == 0) && (numTwo % i == 0)) {
+                    numOne /= i;
+                    numTwo /= i;
+                }
+            }
+            if (numTwo === 1) {
+                result = numOne.toString()
+            } else {
+                result = numOne.toString() + '/' + numTwo.toString()
+            }
+            return result.split('/').map(parseFloat);
+
+        },
+
+
+        nearestDyadicFrac: function (x) {
+            var t1 = Math.round(x * 128);
+            var t2 = 128;
+
+
+            return matrix_obj.simplify([t1, t2]);
+
+        },
+
+
+        // chunk: function (array, size) {
+        //     const chunked_arr = [];
+        //     for (let i = 0; i < array.length; i++) {
+        //         const last = chunked_arr[chunked_arr.length - 1];
+        //         if (!last || last.length === size) {
+        //             chunked_arr.push([array[i]]);
+        //         } else {
+        //             last.push(array[i]);
+        //         }
+        //     }
+        //     return chunked_arr;
+        // },
+
+        // dyadicFracSum: function (x) {
+        //     //Represent number as sum of power of 2 fractions
+        //     var binary = x.toString(2).split(".").pop().slice(0, 8);
+        //     var result = [];
+        //     for (var i = 0; i < binary.length; i++) {
+        //         for (var j = 0; j < binary[i].length; j++) {
+        //             if (binary[i]) {
+        //                 result.push([1, 2 ** (i + 1)]);
+        //             }
+        //         }
+
+        //     }
+        //     console.log(result);
+
+
+
+        //     return result;
+        // },
+
 
 
 
@@ -124,7 +216,7 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
                 return result;
             }
 
-            pow(x) {
+            powInt(x) {
                 var result = this;
                 for (var i = 0; i < x - 1; i++) {
                     result = this.multiply(result);
@@ -246,7 +338,6 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
 
 
             sqrt() {
-                console.log(this);
                 if (this.width() !== this.height()) {
                     throw new Error("Can't find square root of matrix " + this + " - the matrix is not a square matrix")
                 } else {
@@ -329,10 +420,96 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
                 return result;
             }
 
+            fourthRoot() {
+                return this.sqrt().sqrt();
+            }
+
+            eighthRoot() {
+                return this.fourthRoot().sqrt();
+            }
+
+            sixteenthRoot() {
+                return this.eighthRoot().sqrt();
+            }
+
+            thirtySecondRoot() {
+                return this.sixteenthRoot().sqrt();
+            }
+
+            sixtyFourthRoot() {
+                return this.thirtySecondRoot().sqrt();
+            }
+
+            hundredTwentyEighthRoot() {
+                return this.sixtyFourthRoot().sqrt();
+            }
+
+            twoHundredFixtySixthRoot() {
+                return this.hundredTwentyEighthRoot().sqrt();
+            }
+
+            nthRoot(n) {
+                var dyadic = matrix_obj.nearestDyadicFrac(1/n);
+                var result =  matrix_obj.root_obj[dyadic[1]](this).powInt(dyadic[0]);
+                    
+                
+                return result;
+            }
+
+
+
+            pow(x) {
+
+                var t1 = this.powInt(Math.floor(x));
+                var t2 = this.nthRoot(1 / (x % 1));
+                if (t1 < 1) {
+                    return t2;
+                }
+                return t2.multiply(t1);
+            }
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+        },
+
+        root_obj: {
+            1:
+            (n) => n,
+
+            2:
+            (n) => n.sqrt(),
+            4:
+            (n) => n.fourthRoot(),
+            8:
+            (n) => n.eighthRoot(),
+
+            16:
+            (n) => n.sixteenthRoot(),
+
+            32:
+
+            (n) => n.thirtySecondRoot(),
+
+            64:
+
+            (n) => n.sixtyFourthRoot(),
+
+            128: (n) => n.hundredTwentyEighthRoot(),
+
+            256: (n) => n.twoHundredFixtySixthRoot(),
 
 
 
