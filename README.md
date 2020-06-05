@@ -101,4 +101,28 @@ is numerically unstable, so the expansion will explode after roughly`t=4-6` depe
 
     
 
-D
+## Integral
+### `numerical.integral(f,a,b,n?)`
+Returns the definite integral of a function over an interval using a composite trapezoidal rule. 
+#### Arguments
+##### `f: (number) => number`
+The integrand function.
+##### `a: number`
+The lower bound of the integral range.
+##### `b: number`
+The upper bound of the integral range.
+##### `n?: number`
+Optional argument specifying the number of subintervals to use in the composite trapezoidal rul approximation. Larger `n` values produce more accurate results, but take more time to compute. Set to `1000` by default.
+
+#### Usage
+    numerical.integral(function (x) { return x**2},0,6,50) // 67.86547199999998
+    numerical.integral(function (x) { return x**2},0,6,200) // 70.93167299999998
+    numerical.integral(function (x) { return x**2},0,6,1000) // 71.78446778400003
+    numerical.integral(function (x) { return x**2},0,6) // 71.78446778400003
+    numerical.integral(function (x) { return x**2}, 0, 6, 100000) //71.99784004680012
+    numerical.integral(function (x) { return x**2}, 0, 6, 1e+7) //71.99997840000916
+
+### numerical.infIntegral(f,a)
+Returns the, if convergent, semi-infinite integral of a function starting from a point. 
+#### Arguments
+##### `f: (number) => number`
