@@ -97,4 +97,8 @@ is numerically unstable, so the expansion will explode after roughly`t=4-6` depe
 #### Usage
     numerical.taylor(Math.exp,0,2) // [1, 1, 0.49999999813735485]
     numerical.taylor(Math.exp,0,3) // [1, 1, 0.49999999813735485, 0.16666666666666666]
-    numerical.taylor(Math.exp,0,9) // UNSTABLE  
+    numerical.taylor(Math.exp,0,9) // UNSTABLE  [1, 1, 0.49999999813735485, 0.16666666666666666, 699050.6666666666, 0, -91823792722465330000, 0, 6.593392836234701e+33, 0]
+
+    
+
+D
