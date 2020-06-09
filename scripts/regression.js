@@ -124,7 +124,7 @@ define([], function () {
             var n = Object.keys(s).length;
             var s2 = {};
             for (var i = 0; i < n; i++) {
-                s2[Object.keys(a)[i]] = Math.exp(Object.values(a)[i]);
+                s2[Object.keys(s)[i]] = Math.exp(Object.values(s)[i]);
             }
 
             var xAvg = 0;
