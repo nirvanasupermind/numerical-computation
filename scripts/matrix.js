@@ -25,17 +25,17 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
             return (!x || !y) ? 0 : Math.abs((x * y) / matrix_obj.gcd(x, y));
         },
 
-        fracAdd: function(x,y) {
-            var t1 = matrix_obj.lcm(x[1],y[1])/x[1];
-            var t2 = matrix_obj.lcm(x[1],y[1])/y[1];
-            var t3 = matrix_obj.lcm(x[1],y[1]);
-            x[0] = x[0]*t1;
+        fracAdd: function (x, y) {
+            var t1 = matrix_obj.lcm(x[1], y[1]) / x[1];
+            var t2 = matrix_obj.lcm(x[1], y[1]) / y[1];
+            var t3 = matrix_obj.lcm(x[1], y[1]);
+            x[0] = x[0] * t1;
             x[1] = t3;
-            y[0] = y[0]*t2;
+            y[0] = y[0] * t2;
             y[1] = t3;
-            
-        
-            return matrix_obj.simplify([x[0]+y[0],t3]);
+
+
+            return matrix_obj.simplify([x[0] + y[0], t3]);
         },
 
         simplify: function (data) {
@@ -217,8 +217,8 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
             }
 
             powInt(x) {
-                var result = this;
-                for (var i = 0; i < x - 1; i++) {
+                var result = matrix_obj.Matrix.identity(this.width());
+                for (var i = 0; i < x; i++) {
                     result = this.multiply(result);
                 }
                 return result;
@@ -405,6 +405,7 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
                 }
             }
 
+
             static carleman(f, size) {
                 var result = new matrix_obj.Matrix([]);
                 for (var j = 0; j < size; j++) {
@@ -449,10 +450,10 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
             }
 
             nthRoot(n) {
-                var dyadic = matrix_obj.nearestDyadicFrac(1/n);
-                var result =  matrix_obj.root_obj[dyadic[1]](this).powInt(dyadic[0]);
-                    
-                
+                var dyadic = matrix_obj.nearestDyadicFrac(1 / n);
+                var result = matrix_obj.root_obj[dyadic[1]](this).powInt(dyadic[0]);
+
+
                 return result;
             }
 
@@ -460,27 +461,15 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
 
             pow(x) {
 
+
                 var t1 = this.powInt(Math.floor(x));
-                var t2 = this.nthRoot(1 / (x % 1));
-                if (t1 < 1) {
-                    return t2;
+                if (x % 1 === 0) {
+                    return t1;
+                } else {
+                    var t2 = this.nthRoot(1 / (x % 1));
+                    return t2.multiply(t1);
                 }
-                return t2.multiply(t1);
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         },
