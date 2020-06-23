@@ -7,7 +7,6 @@ define(["matrix", "inverse"], function (matrix, inverse) {
         * @param {number} x
         */
         tetrate1: function (a, x) {
-            tetrate_obj.tetrate1()
             return matrix.Matrix.carleman((n) => a ** n, 8).pow(x).array[2].reduce((n, m) => n + m);
         },
 
