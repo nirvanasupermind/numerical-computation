@@ -21,10 +21,10 @@ define(["matrix", "inverse"], function (matrix, inverse) {
         tetrate: function (a, x) {
             if (x < 0) {
                 return Math.log(tetrate_obj.tetrate(a, x + 1)) / Math.log(a);
-            } else if (0 >= x && x <= 1) {
+            } else if (0 <= x && x <= 1) {
                 return tetrate_obj.tetrate1(a, x)
             } else {
-                return tetrate_obj.tetrate()
+                return a**tetrate_obj.tetrate(a,x-1);
             }
 
         },
