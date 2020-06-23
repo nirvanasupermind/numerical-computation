@@ -107,11 +107,11 @@ define(["derivative", "comb"], function (derivative, comb) {
 
 
 
-        
-        
-         /**
-          * A basic matrix class.
-          */
+
+
+        /**
+         * A basic matrix class.
+         */
         Matrix: class Matrix {
             constructor(array) {
                 this.array = array;
@@ -121,7 +121,7 @@ define(["derivative", "comb"], function (derivative, comb) {
             toString() {
                 return JSON.stringify(this);
             }
-            
+
             /**
              * Returns the width of a matrix.
              */
@@ -245,7 +245,7 @@ define(["derivative", "comb"], function (derivative, comb) {
                 }
 
             }
-            
+
             /**
              * Returns an square identity matrix with a supplied side length.
              * @param {number} size 
@@ -253,9 +253,9 @@ define(["derivative", "comb"], function (derivative, comb) {
 
             static identity(width) {
                 var result = new matrix_obj.Matrix([]);
-                for (var i = 0; i < size; i++) {
+                for (var i = 0; i < width; i++) {
                     result.array.push([]);
-                    for (var j = 0; j < size; j++) {
+                    for (var j = 0; j < width; j++) {
                         if (i === j) {
                             result.array[i].push(1);
                         } else {

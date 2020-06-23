@@ -1,4 +1,4 @@
-require(["derivative","regression","matrix","taylor","combin"], function (derivative,regression,matrix,taylor,combin) {
+require(["numerical"], function (numerical) {
 
     // var m1 = function(x) {
     //     return Math.exp(x+1);
@@ -6,6 +6,8 @@ require(["derivative","regression","matrix","taylor","combin"], function (deriva
 
     // var m2 = halfIterate.halfIterate(m1,3);
     // console.log(m2)
+
+    console.log(numerical.tetrate.tetrate(2,0.5));
 
     
    
