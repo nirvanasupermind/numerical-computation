@@ -52,5 +52,5 @@ define([], function () {
 
     }
 
-    return fac_obj;
+    return comb_obj;
 });
