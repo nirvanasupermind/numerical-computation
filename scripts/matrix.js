@@ -1,4 +1,5 @@
-define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
+define(["derivative", "comb"], function (derivative, comb) {
+
     var matrix_obj = {
         // dotProduct: function (x, y) {
         //     var result = 0;
@@ -106,10 +107,12 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
 
 
 
-
-
-        Matrix: class {
-            //Basic matrix class
+        
+        
+         /**
+          * A basic matrix class.
+          */
+        Matrix: class Matrix {
             constructor(array) {
                 this.array = array;
 
@@ -118,16 +121,29 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
             toString() {
                 return JSON.stringify(this);
             }
+            
+            /**
+             * Returns the width of a matrix.
+             */
 
             width() {
                 return this.array[0].length;
             }
+
+            /**
+             * Returns the height of a matrix.
+             */
 
 
 
             height() {
                 return this.array.length;
             }
+
+            /**
+             * Adds two matrices elementwise.
+             * @param {*} x 
+             */
 
 
             add(x) {
@@ -146,21 +162,47 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
                 }
             }
 
+            /**
+             * Adds a matrix with a scalar.
+             * @param {number} x 
+             */
+
             adds(x) {
                 return new matrix_obj.Matrix(this.array.map(function (x2) { return x2.map(function (x3) { return x3 + x }) }));
             }
+
+            /**
+             * Multiplies a matrix by a scalar.
+             * @param {*} x 
+             */
 
             multiplys(x) {
                 return new matrix_obj.Matrix(this.array.map(function (x2) { return x2.map(function (x3) { return x3 * x }) }));
             }
 
+            /**
+             * Subtracts two matrices elementwise.
+             * @param {*} x 
+             */
+
             subtract(x) {
                 return this.add(x.multiplys(-1));
             }
 
+            /**
+             * Subtracts a scalar from a matrix.
+             * @param {number} x 
+             */
+
+
             subtracts(x) {
                 return this.adds(-1 * x);
             }
+
+            /**
+             * Multiplies two matrices using dot-product.
+             * @param {*} x 
+             */
 
             multiply(x) {
                 if (this.width() !== x.height()) {
@@ -187,6 +229,10 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
                 }
             }
 
+            /**
+             * Finds the determinant of a matrix. 
+             */
+
             det() {
                 if (this.width() !== this.height()) {
                     throw new Error("Can't find determinant of matrix " + this + " - the matrix is not a square matrix")
@@ -199,8 +245,13 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
                 }
 
             }
+            
+            /**
+             * Returns an square identity matrix with a supplied side length.
+             * @param {number} size 
+             */
 
-            static identity(size) {
+            static identity(width) {
                 var result = new matrix_obj.Matrix([]);
                 for (var i = 0; i < size; i++) {
                     result.array.push([]);
@@ -216,6 +267,11 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
                 return result;
             }
 
+            /**
+             * Raises a matrix to an integer power.
+             * @param {number} x 
+             */
+
             powInt(x) {
                 var result = matrix_obj.Matrix.identity(this.width());
                 for (var i = 0; i < x; i++) {
@@ -223,9 +279,13 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
                 }
                 return result;
             }
+            /**
+             * Returns the inverse of a matrix. I used some code from someone called Andrew Ippoliti because I couldn't find an algorithm for nxn matrix inversion at the time, so credits to him.
+             */
+
+
 
             inverse() {
-                //Is copied from some internet blog
                 //Uses gauss elimination
                 var M = this.array;
                 if (M.length !== M[0].length) { return; }
@@ -310,6 +370,11 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
                 return new matrix_obj.Matrix(I);
             }
 
+            /**
+             * Creates a square matrix filled with zeroes that has a supplied side length
+             * @param {number} width 
+             */
+
             static zero(width) {
                 var result = new matrix_obj.Matrix([]);
                 for (var i = 0; i < width; i++) {
@@ -321,6 +386,12 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
 
                 return result;
             }
+
+            /**
+             * Creates an axb matrix filled with psuedorandom numbers in (0,1)
+             * @param {number} a 
+             * @param {number} b 
+             */
 
             random(a, b) {
                 var result = new Matrix([]);
@@ -347,7 +418,7 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
                     // const limit = 100;
                     // for (var n = 0; n < limit; n++) {
                     //     console.log("*****n=" + n);
-                    //     var t1 = Math.abs(combin.ncr(0.5, n));
+                    //     var t1 = Math.abs(comb.ncr(0.5, n));
                     //     console.log("t1=" + t1);
                     //     var t2 = identityMatrix.subtract(this);
                     //     t2 = t2.pow(n);
@@ -411,7 +482,7 @@ define(["derivative", "fac", "combin"], function (derivative, fac, combin) {
                 for (var j = 0; j < size; j++) {
                     result.array.push([]);
                     for (var k = 0; k < size; k++) {
-                        var temp = 1 / fac.fac(k);
+                        var temp = 1 / comb.fac(k);
                         temp *= (derivative.derivative(function (x) {
                             return f(x) ** j
                         }, 0, k));

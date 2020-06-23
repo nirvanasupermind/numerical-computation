@@ -1,5 +1,12 @@
 define([],function() {
     var integral_obj = {
+        /**
+         * Returns the integral of a function over a range using a composite trapezoidal rule. The number of subdivisions in the composite rule can be specified by the optional argument n (which is 10000 by default).
+         * @param {function} f 
+         * @param {number} a 
+         * @param {number} b
+         * @param {number} [n]
+         */
         integral: function(f,a,b,n) {
           if(n === undefined) {
             n = 10000;
@@ -17,6 +24,12 @@ define([],function() {
 
         return t1*t2;
     },
+
+
+
+    /**
+     * Returns an integral of a function with a starting point.
+     */
     
     infIntegral: function(f,a) {
         function g(t) {

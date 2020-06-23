@@ -1,4 +1,4 @@
-define(["derivative", "fac"], function (derivative, fac) {
+define(["derivative", "comb"], function (derivative, comb) {
     var taylor_obj = {
        
         taylor: function (f, a, t) {
@@ -11,7 +11,7 @@ define(["derivative", "fac"], function (derivative, fac) {
                 // if (i >= 3) {
                 //     result.push((derivative.derivativeStable(f, a, i) / (fac.fac(i + 1)))*(1/(i**i**(i/1.2))));
                 // } else {
-                    result.push(derivative.derivative(f, a, i) / (fac.fac(i + 1)));
+                    result.push(derivative.derivative(f, a, i) / (comb.fac(i + 1)));
                 // }
 
 
