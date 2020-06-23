@@ -7,7 +7,7 @@ require(["numerical"], function (numerical) {
     // var m2 = halfIterate.halfIterate(m1,3);
     // console.log(m2)
 
-    console.log(numerical.tetrate.tetrate(2,0.5));
+    console.log(numerical.tetrate.slog(2,3));
 
     
    
